@@ -58,9 +58,9 @@ jobs:
             # Autenticar en DockerHub desde EC2
             echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             # Descargar la última versión de la imagen
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ms-gestion-trabajadores:latest
             # Parar y eliminar cualquier contenedor previo
-            docker stop my-app || true && docker rm my-app || true
+            docker stop /ms-gestion-trabajadores || true && docker rm /ms-gestion-trabajadores || true
             # Iniciar el contenedor
-            docker run -d --name my-app -p 8080:8081 ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+            docker run -d --name /ms-gestion-trabajadores -p 8081:8081 ${{ secrets.DOCKERHUB_USERNAME }}/ms-gestion-trabajadores:latest
           EOF
