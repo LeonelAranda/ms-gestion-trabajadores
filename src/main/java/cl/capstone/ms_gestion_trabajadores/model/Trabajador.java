@@ -21,31 +21,31 @@ public class Trabajador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_trabajador;
+    private Long idTrabajador;
 
     @Column(nullable = false)
-    private Long id_tipo_usuario;
+    private Long idTipoUsuario;
 
     @Column(nullable = false)
-    private String primero_nombre;
+    private String primerNombre;
 
     @Column(nullable = false)
-    private String segundo_nombre;
+    private String segundoNombre;
 
     @Column(nullable = false)
-    private String primer_apellido;
+    private String primerApellido;
 
     @Column(nullable = false)
-    private String segundo_apellido;
+    private String segundoApellido;
 
     @Column(nullable = false)
     private String run;
 
     @Column(nullable = false)
-    private LocalDate fecha_nacimiento;
+    private LocalDate fechaNacimiento;
 
     @Column(nullable = false)
-    private LocalDate fecha_contratacion;
+    private LocalDate fechaContratacion;
 
     @Column(nullable = false)
     private String direccion;
@@ -53,30 +53,14 @@ public class Trabajador {
     @Column(nullable = false)
     private String telefono;
 
+    @Column(nullable = false)
+    private String comuna;
+
+    @Column(nullable = false)
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "CARGO_ID", referencedColumnName = "CARGO_ID")
     private Cargo cargos;
-
-    public Trabajador() {
-    }
-
-    // Constructor con parámetros
-    public Trabajador(String primero_nombre, String segundo_nombre,
-            String primer_apellido, String segundo_apellido, String run,
-            LocalDate fecha_nacimiento, LocalDate fecha_contratacion,
-            String direccion, String telefono, String email, int cargo) {
-        this.primero_nombre = primero_nombre;
-        this.segundo_nombre = segundo_nombre;
-        this.primer_apellido = primer_apellido;
-        this.segundo_apellido = segundo_apellido;
-        this.run = run;
-        this.fecha_nacimiento = fecha_nacimiento;
-        this.fecha_contratacion = fecha_contratacion;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
-    }
 
 }

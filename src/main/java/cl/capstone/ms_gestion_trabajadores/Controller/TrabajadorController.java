@@ -1,7 +1,7 @@
 package cl.capstone.ms_gestion_trabajadores.Controller;
 
-import java.util.List;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.capstone.ms_gestion_trabajadores.dto.TrabajadorDTO;
 import cl.capstone.ms_gestion_trabajadores.model.Response;
 import cl.capstone.ms_gestion_trabajadores.model.Trabajador;
 import cl.capstone.ms_gestion_trabajadores.service.ITrabajadorService;
@@ -61,27 +61,11 @@ public class TrabajadorController {
         }
     }
 
-    @PutMapping("/trabajadores/editar/{id}")
-    public Trabajador editTrabajador(@PathVariable Long id,
-            @RequestParam(required = false, name = "nombre") String nuevoNombre,
-            @RequestParam(required = false, name = "apellido") String nuevoApliido) {
-
-        // Response response = new Response();
-        // LocalDateTime currentDate = LocalDateTime.now();
-
-        iTrabajadorService.editTrabajador(id, nuevoNombre, nuevoApliido);
-
-        Trabajador trabajador = iTrabajadorService.findTrabajador(id);
-
-        return trabajador;
-
-    }
-
     @PutMapping("/trabajadores/editar/")
     public Trabajador editTrabajador(@RequestBody Trabajador trabajador) {
         iTrabajadorService.editTrabajador(trabajador);
 
-        return iTrabajadorService.findTrabajador(trabajador.getId_trabajador());
+        return iTrabajadorService.findTrabajador(trabajador.getIdTrabajador());
     }
 
     @GetMapping("/trabajadores/traer/{id}")
@@ -129,4 +113,26 @@ public class TrabajadorController {
         }
 
     }
+
+    @GetMapping("/trabajadores/traer/nombre/{nombre}")
+    public TrabajadorDTO trabajadorByNombre(String nombre) {
+
+        return iTrabajadorService.findByPrimerNombre(nombre);
+
+    }
+
+    @GetMapping("/trabajadores/traer/apellido/{apellido}")
+    public String trabajadorByApellido(String apellido) {
+
+        return iTrabajadorService.findByPrimerApellido(apellido);
+
+    }
+
+    @GetMapping("/trabajadores/traer/{comuna}/{apellido}")
+    public String trabajadorByComunaApellido(String comuna, String apellido) {
+
+        return iTrabajadorService.findByComunaAndPrimerApellido(comuna, apellido);
+
+    }
+
 }
