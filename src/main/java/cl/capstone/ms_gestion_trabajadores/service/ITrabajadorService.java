@@ -9,7 +9,7 @@ public interface ITrabajadorService {
 
     public List<Trabajador> getTrabajadores();
 
-    public void saveTrabajador(Trabajador trabajador);
+    public Trabajador saveTrabajador(Trabajador trabajador);
 
     public void deleteTrabajador(Long id);
 
@@ -21,6 +21,8 @@ public interface ITrabajadorService {
 
     public String findByPrimerApellido(String apellido);
 
-    public String findByComunaAndPrimerApellido(String comuna, String apellido);
+    public Trabajador findByComunaAndPrimerApellido(String comuna, String apellido);
+
+    public Trabajador findByRun(String run);
 
 }

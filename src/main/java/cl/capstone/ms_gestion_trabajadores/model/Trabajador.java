@@ -57,7 +57,16 @@ public class Trabajador {
     private String comuna;
 
     @Column(nullable = false)
+    private String region;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String calleDireccion;
+
+    @Column(nullable = false)
+    private String numeroDireccion;
 
     @ManyToOne
     @JoinColumn(name = "CARGO_ID", referencedColumnName = "CARGO_ID")

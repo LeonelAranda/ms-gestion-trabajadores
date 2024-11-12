@@ -16,7 +16,9 @@ public interface ITrabajadorRepository extends JpaRepository<Trabajador, Long> {
 
     public String findByPrimerApellido(String apellido);
 
-    public String findByComunaAndPrimerApellido(String comuna, String apellido);
+    public Trabajador findByComunaAndPrimerApellido(String comuna, String apellido);
+
+    public Trabajador findByRun(String run);
 
     @Query(value = "SELECT c.*, o.*, p.* "
             + " from Customer c, CustomerOrder o ,Product p "

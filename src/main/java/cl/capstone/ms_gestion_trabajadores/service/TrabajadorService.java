@@ -23,9 +23,11 @@ public class TrabajadorService implements ITrabajadorService {
     }
 
     @Override
-    public void saveTrabajador(Trabajador trabajador) {
+    public Trabajador saveTrabajador(Trabajador trabajador) {
 
         trabajadorRepository.save(trabajador);
+
+        return trabajador;
     }
 
     @Override
@@ -67,9 +69,14 @@ public class TrabajadorService implements ITrabajadorService {
     }
 
     @Override
-    public String findByComunaAndPrimerApellido(String comuna, String apellido) {
+    public Trabajador findByComunaAndPrimerApellido(String comuna, String apellido) {
 
         return trabajadorRepository.findByComunaAndPrimerApellido(comuna, apellido);
+    }
+
+    public Trabajador findByRun(String run) {
+
+        return trabajadorRepository.findByRun(run);
     }
 
 }

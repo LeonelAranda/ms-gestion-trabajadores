@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,19 +21,36 @@ import cl.capstone.ms_gestion_trabajadores.model.Trabajador;
 import cl.capstone.ms_gestion_trabajadores.service.ITrabajadorService;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*") // CORS para todos los endpoints en esta clase
 public class TrabajadorController {
 
     @Autowired
     private ITrabajadorService iTrabajadorService;
 
     @PostMapping("/trabajadores/crear")
-    public String saveTrabajador(@RequestBody Trabajador trabajador) {
+    public ResponseEntity<Response> saveTrabajador(@RequestBody Trabajador trabajador) {
 
-        // Response response = new Response();
-        // LocalDateTime currentDate = LocalDateTime.now();
+        Response response = new Response();
+        LocalDateTime currentDate = LocalDateTime.now();
 
-        iTrabajadorService.saveTrabajador(trabajador);
-        return "creado";
+        Trabajador nuevoTrabajador = iTrabajadorService
+                .saveTrabajador(trabajador);
+
+        // Verificar si se guardó correctamente
+        if (nuevoTrabajador != null) {
+            response.setCodigoRetorno(0); // Código de éxito
+            response.setGlosaRetorno("Trabajador creado exitosamente.");
+            response.setResultado(nuevoTrabajador);
+            response.setTimestamp(currentDate);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } else {
+            // En caso de fallo al guardar el TipoCumplimiento
+            response.setCodigoRetorno(-1); // Código de error
+            response.setGlosaRetorno("Error al crear el usuario.");
+            response.setResultado(null);
+            response.setTimestamp(currentDate);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/trabajadores/borrar/{id}")
@@ -62,10 +80,29 @@ public class TrabajadorController {
     }
 
     @PutMapping("/trabajadores/editar/")
-    public Trabajador editTrabajador(@RequestBody Trabajador trabajador) {
-        iTrabajadorService.editTrabajador(trabajador);
+    public ResponseEntity<Response> editTrabajador(@RequestBody Trabajador trabajador) {
 
-        return iTrabajadorService.findTrabajador(trabajador.getIdTrabajador());
+        Response response = new Response();
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        Trabajador Encontrartrabajador = iTrabajadorService.findTrabajador(trabajador.getIdTrabajador());
+
+        if (Encontrartrabajador != null) {
+            // Si existe el trabajador, procedemos a eliminarlo
+            iTrabajadorService.editTrabajador(trabajador);
+            response.setCodigoRetorno(0); // Código de éxito
+            response.setGlosaRetorno("Trabajador modificado.");
+            response.setResultado(Encontrartrabajador);
+            response.setTimestamp(currentDate);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            // Si el trabajador no existe, retornamos un mensaje de error
+            response.setCodigoRetorno(-1); // Código de error
+            response.setGlosaRetorno("No se encontró el trabajador.");
+            response.setResultado(null);
+            response.setTimestamp(currentDate);
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/trabajadores/traer/{id}")
@@ -129,9 +166,16 @@ public class TrabajadorController {
     }
 
     @GetMapping("/trabajadores/traer/{comuna}/{apellido}")
-    public String trabajadorByComunaApellido(String comuna, String apellido) {
+    public Trabajador trabajadorByComunaApellido(String comuna, String apellido) {
 
         return iTrabajadorService.findByComunaAndPrimerApellido(comuna, apellido);
+
+    }
+
+    @GetMapping("/trabajadores/traer/run/{run}")
+    public Trabajador trabajadorByComunaApellido(String run) {
+
+        return iTrabajadorService.findByRun(run);
 
     }
 

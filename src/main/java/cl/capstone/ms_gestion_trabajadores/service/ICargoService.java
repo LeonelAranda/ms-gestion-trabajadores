@@ -11,7 +11,7 @@ public interface ICargoService {
 
     public List<Cargo> getCargos();
 
-    public void saveCargo(Cargo cargo);
+    public Cargo saveCargo(Cargo cargo);
 
     public void deleteCargo(Long id);
 

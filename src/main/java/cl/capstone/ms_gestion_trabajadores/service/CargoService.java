@@ -22,9 +22,11 @@ public class CargoService implements ICargoService {
     }
 
     @Override
-    public void saveCargo(Cargo cargo) {
+    public Cargo saveCargo(Cargo cargo) {
 
         cargoRepository.save(cargo);
+
+        return cargo;
 
     }
 
