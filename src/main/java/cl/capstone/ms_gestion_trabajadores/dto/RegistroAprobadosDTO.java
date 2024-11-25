@@ -7,9 +7,9 @@ import lombok.ToString;
 @Data
 @ToString
 @AllArgsConstructor
-public class RegistroDTO {
+public class RegistroAprobadosDTO {
+
     private Long idFaena;
-    private String nombreFaena;
     private String primerNombre;
     private String primerApellido;
     private String run;

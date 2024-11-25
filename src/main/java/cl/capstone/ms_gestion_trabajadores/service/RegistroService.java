@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cl.capstone.ms_gestion_trabajadores.Repository.RegistroRepository;
+import cl.capstone.ms_gestion_trabajadores.dto.RegistroAprobadosDTO;
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroDTO;
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroFiltrosDTO;
 
@@ -17,5 +18,9 @@ public class RegistroService {
 
     public List<RegistroDTO> obtenerRegistrosFiltrados(RegistroFiltrosDTO filtro) {
         return registroRepository.obtenerRegistros(filtro);
+    }
+
+    public List<RegistroAprobadosDTO> obtenerRegistrosAprobadosFiltrados(RegistroFiltrosDTO filtro, int idFaena) {
+        return registroRepository.obtenerRegistrosAprobados(filtro, idFaena);
     }
 }
