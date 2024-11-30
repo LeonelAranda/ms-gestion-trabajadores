@@ -88,4 +88,5 @@ public class RegistroRepository {
         )).collect(Collectors.toList());
 
     }
+
 }
