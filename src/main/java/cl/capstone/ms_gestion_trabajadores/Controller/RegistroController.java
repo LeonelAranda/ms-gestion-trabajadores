@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroAprobadosDTO;
+import cl.capstone.ms_gestion_trabajadores.dto.RegistroAprobadosDTO2;
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroDTO;
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroFiltrosDTO;
+import cl.capstone.ms_gestion_trabajadores.model.AlojamientoTransporte;
 import cl.capstone.ms_gestion_trabajadores.model.TrabajadorFaena;
+import cl.capstone.ms_gestion_trabajadores.service.IAlojamientoTransporteService;
 import cl.capstone.ms_gestion_trabajadores.service.RegistroService;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -27,6 +30,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @CrossOrigin(origins = "*", allowedHeaders = "*") // CORS para todos los endpoints en esta clase
 @RequestMapping("/api/registros")
 public class RegistroController {
+
+    @Autowired
+    IAlojamientoTransporteService alojamientoTransporteService;
 
     private final RegistroService registroService;
 
@@ -51,6 +57,14 @@ public class RegistroController {
     public ResponseEntity<List<RegistroAprobadosDTO>> obtenerRegistrosAprobados(@RequestBody RegistroFiltrosDTO filtros,
             int idFaena) {
         List<RegistroAprobadosDTO> registros = registroService.obtenerRegistrosAprobadosFiltrados(filtros, idFaena);
+        return ResponseEntity.ok(registros);
+    }
+
+    @PostMapping("/registro/traerAprobados2/{idFaena}")
+    public ResponseEntity<List<RegistroAprobadosDTO2>> obtenerRegistrosAprobados2(
+            @RequestBody RegistroFiltrosDTO filtros,
+            int idFaena) {
+        List<RegistroAprobadosDTO2> registros = registroService.obtenerRegistrosAprobadosFiltrados2(filtros, idFaena);
         return ResponseEntity.ok(registros);
     }
 
@@ -105,6 +119,13 @@ public class RegistroController {
         }
 
         return ResponseEntity.ok(trabajadorFaenaActualizado); // Devolvemos la respuesta exitosa
+    }
+
+    @PostMapping("/registro/Alojamientotransporte")
+    public ResponseEntity<AlojamientoTransporte> saveAlojamientoTransporte(
+            AlojamientoTransporte alojamientoTransporte) {
+        AlojamientoTransporte respuesta = alojamientoTransporteService.saveAlojamientoTransporte(alojamientoTransporte);
+        return ResponseEntity.ok(respuesta);
     }
 
 }

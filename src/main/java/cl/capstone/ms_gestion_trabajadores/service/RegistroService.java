@@ -10,6 +10,7 @@ import cl.capstone.ms_gestion_trabajadores.Repository.IRegistroRepository;
 import cl.capstone.ms_gestion_trabajadores.Repository.ITipoCumplimientoRepository;
 import cl.capstone.ms_gestion_trabajadores.Repository.RegistroRepository;
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroAprobadosDTO;
+import cl.capstone.ms_gestion_trabajadores.dto.RegistroAprobadosDTO2;
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroDTO;
 import cl.capstone.ms_gestion_trabajadores.dto.RegistroFiltrosDTO;
 import cl.capstone.ms_gestion_trabajadores.model.TipoCumplimiento;
@@ -33,6 +34,10 @@ public class RegistroService {
 
     public List<RegistroAprobadosDTO> obtenerRegistrosAprobadosFiltrados(RegistroFiltrosDTO filtro, int idFaena) {
         return registroRepository.obtenerRegistrosAprobados(filtro, idFaena);
+    }
+
+    public List<RegistroAprobadosDTO2> obtenerRegistrosAprobadosFiltrados2(RegistroFiltrosDTO filtro, int idFaena) {
+        return registroRepository.obtenerRegistrosAprobados2(filtro, idFaena);
     }
 
     public TrabajadorFaena actualizarCampoPorRunYFaena(String run, Long idFaena, Long nuevoTipoCumplimientoId) {
