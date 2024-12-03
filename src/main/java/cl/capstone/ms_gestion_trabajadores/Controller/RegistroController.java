@@ -123,7 +123,7 @@ public class RegistroController {
 
     @PostMapping("/registro/Alojamientotransporte")
     public ResponseEntity<AlojamientoTransporte> saveAlojamientoTransporte(
-            AlojamientoTransporte alojamientoTransporte) {
+            @RequestBody AlojamientoTransporte alojamientoTransporte) {
         AlojamientoTransporte respuesta = alojamientoTransporteService.saveAlojamientoTransporte(alojamientoTransporte);
         return ResponseEntity.ok(respuesta);
     }
